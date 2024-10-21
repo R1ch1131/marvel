@@ -1,0 +1,48 @@
+.cardContainer {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    position: relative;
+    bottom: 40px;
+    max-height: 400px;
+}
+
+.text{
+    display: flex;
+    gap: 4px;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.counter{
+    font-size: medium;
+    color: grey;
+    padding-top: 34px;
+    font-weight: bold;
+}
+
+.input{
+    width: 100%;
+    height: 34px;
+
+}
+
+.button{
+    background-color: #EFAD4D;
+    color: white;
+    width: 220px;
+    height: 40px;
+}
+
+.search{
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+}
+
+.title{
+    padding-left: 5%;
+    padding-right: 5%;
+    position: relative;
+    top: -100px;
+}
