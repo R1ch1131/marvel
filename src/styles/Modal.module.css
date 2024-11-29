@@ -1,0 +1,54 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+   
+  }
+  
+  .modalContent {
+    background-color: white;
+    text-align: center;
+  }
+  
+  .img {
+    padding: 60px;
+    width: 100vw;
+    height: 45vh;
+  }
+
+.modalFlex{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 30%
+}
+
+.comics{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.button{
+  background-color: #EFAD4D;
+  color: white;
+  width: 220px;
+  height: 40px;
+  position: relative;
+  top: 80px;
+
+  
+}
+
+.description{
+  max-width: 60%;
+}
+
+.title{
+  max-width: 60%;
+}
