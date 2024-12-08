@@ -1,33 +1,45 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Modal from './Modal';
-import CharaсterData from "./CharaсterData";
+import { observer } from 'mobx-react-lite';
+import marvelStore from '../stores/MarvelStore';
+import { useEffect, useState } from 'react';
+import { Character } from '../models/Character';
 
 
-const CharacterDetails = () => {
+const CharacterDetails = observer(() => {
     const { characterId } = useParams();
     const navigate = useNavigate();
+     const [character, setCharacter] = useState<Character | undefined>(undefined);
 
-  const character = characterId 
-  ? CharaсterData.find(card => card.id === parseInt(characterId))
-  : null; 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (characterId) {
+        const char = await marvelStore.fetchCharacterDetails(parseInt(characterId));
+          setCharacter(char)
+      }
+    };
+    fetchData()
+  }, [characterId]);
+
 
   if (!character) {
     return <div>Персонаж не найден</div>;
   }
 
-  return (
-    <div>
-      <Modal 
-        isOpen={true} 
-        onClose={() => navigate(-1)} 
-        image={character.image}
-        title={character.title}
-        description={character.description}
-        comics1={character.comics1}
-        comics2={character.comics2}
-      />
-    </div>
-  );
-};
+  const comics = character.comics.items.map(item => item.name)
+    return (
+        <div>
+            <Modal
+                isOpen={true}
+                onClose={() => navigate(-1)}
+                image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                title={character.name}
+                description={character.description}
+                comics={comics}
+            />
+        </div>
+    );
+});
 
 export default CharacterDetails;

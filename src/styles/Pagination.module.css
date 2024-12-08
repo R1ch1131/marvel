@@ -1,0 +1,45 @@
+.pagination {
+    position: fixed;
+    left: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pageButton {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.active {
+    background-color: #ffc107; /* Желтый цвет для активной страницы */
+    color: white;
+    border-color: #ffc107;
+}
+
+.pageButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.navButton {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: white;
+}
+
+.navButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.navButton:hover:not(:disabled) {
+    background-color: #e9ecef;
+}
