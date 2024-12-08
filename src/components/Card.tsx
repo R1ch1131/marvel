@@ -1,31 +1,37 @@
-import React, { useState } from "react";
-import styles from './../styles/Card.module.css' 
-import Modal from "./Modal"; 
-import { useNavigate, useLocation } from 'react-router-dom'; 
+import React, { useState, useEffect } from "react";
+import styles from './../styles/Card.module.css'
+import Modal from "./Modal";
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 interface CardProps {
   image: string;
   title: string;
   description: string;
-  comics1: string;
-  comics2: string;
-  id: number; 
+  comics: string[];
+  id: number;
 }
 
-const Card: React.FC<CardProps> = ({ image, title, description, comics1, comics2, id }) => {
+const Card: React.FC<CardProps> = ({ image, title, description, comics, id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState(image);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const location = useLocation();
 
+
+  useEffect(() => {
+    console.log("Card Data:", { image, title, description, comics, id });
+  }, [image, title, description, comics, id]);
+
+
   const handleOpenModal = () => {
-    setModalImage(image); 
+    setModalImage(image);
     setIsModalOpen(true);
 
     if (location.pathname.includes('comics')) {
-      navigate(`/comics/${id}`); 
+      navigate(`/comics/${id}`);
     } else {
-      navigate(`/characters/${id}`); 
+      navigate(`/characters/${id}`);
     }
   };
 
@@ -43,18 +49,16 @@ const Card: React.FC<CardProps> = ({ image, title, description, comics1, comics2
         </div>
       </div>
 
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        image={modalImage} 
-        title={title} 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        image={modalImage}
+        title={title}
         description={description}
-        comics1={comics1}
-        comics2={comics2}
+        comics={comics}
       />
     </>
   );
 };
 
 export default Card;
-

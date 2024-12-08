@@ -1,32 +1,43 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Modal from './Modal';
-import ComicsData from './ComicsData';
-
-const ComicsDetails = () => {
-    const { comicsId } = useParams();
-    const navigate = useNavigate();
-
-  const comics = comicsId 
-  ? ComicsData.find(card => card.id === parseInt(comicsId))
-  : null;
-
-  if (!comics) {
-    return <div>Персонаж не найден</div>;
-  }
-
-  return (
-    <div>
-      <Modal 
-        isOpen={true}
-        onClose={() => navigate(-1)}
-        image={comics.image}
-        title={comics.title}
-        description={comics.description}
-        comics1={comics.comics1}
-        comics2={comics.comics2}
-      />
-    </div>
-  );
-};
-
-export default ComicsDetails;
+ import Modal from './Modal';
+ import marvelStore from '../stores/MarvelStore';
+ import { observer } from 'mobx-react-lite';
+ import { useEffect, useState } from 'react';
+ import { Comic } from '../models/Comic';
+ 
+ const ComicsDetails = observer(() => {
+     const { comicsId } = useParams();
+     const navigate = useNavigate();
+      const [comics, setComics] = useState<Comic | undefined>(undefined);
+ 
+ 
+   useEffect(() => {
+     const fetchData = async () => {
+       if (comicsId) {
+         const comic = await marvelStore.fetchComicDetails(parseInt(comicsId));
+           setComics(comic)
+       }
+     };
+     fetchData()
+   }, [comicsId]);
+ 
+   if (!comics) {
+     return <div>Комикс не найден</div>;
+   }
+ 
+   const characters = comics.characters.items.map(item => item.name)
+   return (
+     <div>
+       <Modal
+         isOpen={true}
+         onClose={() => navigate(-1)}
+         image={`${comics.thumbnail.path}.${comics.thumbnail.extension}`}
+         title={comics.title}
+         description={comics.description}
+           comics={characters}
+       />
+     </div>
+   );
+ });
+ 
+ export default ComicsDetails;

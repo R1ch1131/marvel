@@ -1,0 +1,1 @@
+export interface MarvelDataResponse<T> { data: { offset: number; limit: number; total: number; results: T[]; }; }

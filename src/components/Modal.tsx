@@ -7,11 +7,10 @@ interface ModalProps {
   image: string;
   title: string;
   description: string;
-  comics1: string;
-  comics2: string;
+  comics: string[];
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, image, title, description, comics1, comics2 }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, image, title, description, comics }) => {
   if (!isOpen) return null;
 
   return (
@@ -25,8 +24,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, image, title, descriptio
           </div>
           <div className={styles.comics}>
             <h3>Comics</h3>
-            <a href="dssgsg">{comics1}</a>
-            <a href="sgsgfsfd">{comics2}</a>
+              {comics.map((comic, index) => (
+                  <a href='#' key={index}>{comic}</a>
+              ))}
           </div>
         </div>
         <button className={styles.button} onClick={onClose}>Close</button>
